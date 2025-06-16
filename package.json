@@ -1,15 +1,15 @@
 {
   "displayName": "Homebridge Dwelo Plugin",
-  "name": "@eduardoramirez/homebridge-dwelo",
+  "name": "@andersonjoeyt/homebridge-dwelo",
   "version": "1.0.13",
   "description": "Adds support for Dwelo accessories to Homebridge.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/eduardoramirez/homebridge-dwelo.git"
+    "url": "https://github.com/andersonjoeyt/homebridge-dwelo.git"
   },
   "bugs": {
-    "url": "https://github.com/eduardoramirez/homebridge-dwelo/issues"
+    "url": "https://github.com/andersonjoeyt/homebridge-dwelo/issues"
   },
   "engines": {
     "node": ">=14.18.1",
