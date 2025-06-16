@@ -3,6 +3,7 @@ import { API, StaticPlatformPlugin, PlatformConfig, AccessoryPlugin, Logging } f
 import { DweloAPI } from './DweloAPI';
 import { DweloLockAccessory } from './DweloLockAccessory';
 import { DweloSwitchAccessory } from './DweloSwitchAccessory';
+import { DweloThermostatAccessory } from './DweloThermostatAccessory';
 
 export class HomebridgePluginDweloPlatform implements StaticPlatformPlugin {
   private readonly dweloAPI: DweloAPI;
@@ -26,6 +27,8 @@ export class HomebridgePluginDweloPlatform implements StaticPlatformPlugin {
               return new DweloSwitchAccessory(this.log, this.api, this.dweloAPI, d.givenName, d.uid);
             case 'lock':
               return new DweloLockAccessory(this.log, this.api, this.dweloAPI, d.givenName, d.uid);
+			case 'thermostat':
+			  return new DweloThermostatAccessory(this.log, this.api, this.dweloAPI, d.givenName, d.uid);
             default:
               this.log.warn(`Support for Dwelo accessory type: ${d.deviceType} is not implemented`);
               this.log.warn('%s', d);

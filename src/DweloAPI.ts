@@ -1,6 +1,4 @@
-
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-
 
 interface ListResponse {
   resultsCount: number;
@@ -10,7 +8,7 @@ interface ListResponse {
 export interface Device {
   addressId: number;
   dateRegistered: string;
-  deviceType: 'lock' | 'switch';
+  deviceType: 'lock' | 'switch' | 'thermostat'; // ← Added thermostat
   device_metadata: Record<string, string>;
   gatewayId: string;
   givenName: string;
@@ -65,14 +63,14 @@ export class DweloAPI {
   public async toggleSwitch(on: boolean, id: number) {
     return this.request(`/v3/device/${id}/command/`, {
       method: 'POST',
-      data: { 'command': on ? 'on' : 'off' },
+      data: { command: on ? 'on' : 'off' },
     });
   }
 
   public async toggleLock(locked: boolean, id: number) {
     await this.request(`/v3/device/${id}/command/`, {
       method: 'POST',
-      data: { 'command': locked ? 'lock' : 'unlock' },
+      data: { command: locked ? 'lock' : 'unlock' },
     });
 
     const target = locked ? 'locked' : 'unlocked';
@@ -81,6 +79,26 @@ export class DweloAPI {
       stopCondition: s => s.find(s => s.sensorType === 'lock')?.value === target,
       interval: 5000,
       timeout: 60 * 1000,
+    });
+  }
+
+  // 🟡 New Methods for Thermostat
+  public async setDeviceTemp(deviceId: number, temperature: number): Promise<void> {
+    await this.request(`/v3/device/${deviceId}/command/`, {
+      method: 'POST',
+      data: {
+        command: 'set_temperature', // adjust if needed
+        value: temperature,
+      },
+    });
+  }
+
+  public async setDeviceMode(deviceId: number, mode: 'heating' | 'cooling' | 'off'): Promise<void> {
+    await this.request(`/v3/device/${deviceId}/command/`, {
+      method: 'POST',
+      data: {
+        command: `set_mode_${mode}`, // adjust if needed
+      },
     });
   }
 
