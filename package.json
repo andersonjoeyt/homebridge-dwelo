@@ -1,7 +1,7 @@
 {
   "displayName": "Homebridge Dwelo Plugin",
   "name": "@andersonjoeyt/homebridge-dwelo",
-  "version": "1.0.13",
+  "version": "1.1.0",
   "description": "Adds support for Dwelo accessories to Homebridge.",
   "license": "Apache-2.0",
   "repository": {
